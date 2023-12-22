@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    @apply font-nunitoSans bg-lightModeBg text-lightModeText dark:bg-darkModeBg dark:text-white;
+  }
+  input,
+  textarea,
+  button,
+  select,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+@layer components {
+  .box-shadow {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+  }
+  .cta {
+    @apply text-white py-[14px] px-10 rounded-full font-bold cursor-pointer hover:bg-[#9AE3E3];
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 40px #fff inset;
+    -webkit-text-fill-color: #111517;
+    background-clip: content-box;
+  }
+  input[type=search]::-webkit-search-decoration,
+  input[type=search]::-webkit-search-cancel-button,
+  input[type=search]::-webkit-search-results-button,
+  input[type=search]::-webkit-search-results-decoration {
+    display: none;
+  }
+}
+@layer utilities {
+  .slide-in {
+    animation: slide-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  @keyframes slide-in {
+    0% {
+      transform: translateY(100px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  .form-bg {
+    background: #3A3054 url("../public/images/bg-shorten-mobile.svg") no-repeat;
+    background-size: contain;
+    background-position: top -27px right 0;
+  }
+  @screen md {
+    .form-bg {
+      background: #3A3054 url("../public/images/bg-shorten-desktop.svg") no-repeat;
+    }
+  }
+}/*# sourceMappingURL=globals.css.map */
