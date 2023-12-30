@@ -7,15 +7,8 @@ import darkMoon from "../../public/images/lightMoon.svg";
 import { useToggle } from "@/hooks/useToggle";
 
 const NavBar = () => {
-  const [isDark, setIsDark] = useToggle(() => {
-    if (typeof window !== "undefined" || localStorage.getItem("theme-color") === "dark") {
-      console.log(localStorage.getItem("theme-color"));
-      return true;
-    } else {
-      return false;
-    }
-  });
-
+  const [isDark, setIsDark] = useToggle(typeof window !== "undefined" ? localStorage.getItem("theme-color") : false);
+  
   useEffect(() => {
     document.documentElement.className = isDark ? "dark" : "";
     localStorage.setItem("theme-color", isDark ? "dark" : "light");
