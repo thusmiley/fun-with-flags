@@ -36,8 +36,9 @@
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 40px #fff inset;
-    -webkit-text-fill-color: #111517;
+    -webkit-text-fill-color: inherit;
     background-clip: content-box;
+    @apply dark:text-inherit dark:shadow-darkModeInputBg;
   }
   input[type=search]::-webkit-search-decoration,
   input[type=search]::-webkit-search-cancel-button,

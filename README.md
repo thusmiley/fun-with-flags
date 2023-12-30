@@ -17,8 +17,8 @@ Fun with Flags Website
 
 ### Links
 
-- Git URL: 
-- Live Site URL: 
+- Git URL: https://github.com/thusmiley/fun-with-flags.git
+- Live Site URL: https://fun-with-flags-gules.vercel.app/
 
 ### Built with
 
