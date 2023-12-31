@@ -28,7 +28,7 @@ Fun with Flags Website
 - Tailwind
 - React (Nextjs)
 - React Hook Form
-- Rest Countries APIs: https://restcountries.com/#api-endpoints-v2
+- Rest Countries APIs: https://restcountries.com/#endpoints-name
 - App Router ?
 - Dark mode
 - HeadlessUI

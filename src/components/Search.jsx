@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const Search = ({ filteredData, setFilteredData }) => {
+const Search = ({ filteredData, setFilteredData, searchError, setSearchError, setSearchKeyword, searchKeyword }) => {
   const {
     register,
     handleSubmit,
@@ -11,12 +11,21 @@ const Search = ({ filteredData, setFilteredData }) => {
 
   const onSubmit = (data) => {
     fetch(`https://restcountries.com/v3.1/name/${data.search}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Country does not exist.");
+        }
+      })
       .then((response) => {
         setFilteredData(response);
+        setSearchError(false);
+        setSearchKeyword(data.search);
       })
       .catch((error) => {
-        console.log(error);
+        setSearchKeyword(data.search);
+        setSearchError(true);
       });
   };
 
@@ -56,11 +65,7 @@ const Search = ({ filteredData, setFilteredData }) => {
           placeholder="Search for a country…"
           className="py-[14px] pl-[74px] bg-white w-full text-[12px] leading-[20px] text-lightModeText placeholder:text-[#c4c4c4] outline-[1px] outline-lightModeText box-shadow rounded-[5px] caret-lightModeText dark:bg-darkModeInputBg dark:text-white dark:caret-white md:w-[480px]"
         />
-        {errors.search && (
-          <p className="mt-1 text-[12px] leading-[18px] tracking-[.08px] text-red-500 italic">
-            {errors.search.message}
-          </p>
-        )}
+        {errors.search && <p className="mt-1 text-[12px] leading-[18px] tracking-[.08px] text-red-500 italic">{errors.search.message}</p>}
       </div>
     </form>
   );
