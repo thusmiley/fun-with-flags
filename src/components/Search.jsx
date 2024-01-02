@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const Search = ({ filteredData, setFilteredData, searchError, setSearchError, setSearchKeyword, searchKeyword }) => {
+const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
   const {
     register,
     handleSubmit,

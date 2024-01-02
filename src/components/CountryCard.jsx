@@ -1,13 +1,16 @@
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const CountryCard = ({ country }) => {
+  const router = useRouter();
+
   return (
-    <div className="bg-white rounded-[5px] mx-auto max-w-[264px] cursor-pointer dark:bg-darkModeInputBg">
-      <Image
-        src={country.flags.png}
+    <div
+      className="bg-white rounded-[5px] mx-auto max-w-[264px] cursor-pointer dark:bg-darkModeInputBg"
+      onClick={() => router.push(`/country/${country.name.common.split(` `).join(`-`)}`)}
+    >
+      <img
+        src={country.flags.svg}
         alt={`${country.name.common} flag`}
-        width={264}
-        height={160}
         className="object-cover object-center rounded-t-[5px] w-[264px] h-[160px]"
         priority="false"
       />

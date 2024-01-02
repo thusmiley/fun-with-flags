@@ -12,7 +12,7 @@ const regions = [
   { id: 5, name: "Oceania" },
 ];
 
-const Filter = ({ filterStatus, setFilterStatus, filteredData, setFilteredData }) => {
+const Filter = ({ setFilterStatus }) => {
   const [selected, setSelected] = useState(regions[0]);
 
   return (
