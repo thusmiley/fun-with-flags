@@ -9,11 +9,11 @@ export default function Country({ params }) {
   const [countryData, setCountryData] = useState([]);
 
   useEffect(() => {
-    fetch(`https://restcountries.com/v3.1/name/${params.name.toString().replace("-", " ")}`)
+    fetch(`https://restcountries.com/v3.1/name/${params.name.toString().replace(/-/g, " ")}`)
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response);
-        setCountryData(response);
+        console.log(params.name.toString().replace(/-/g, " "));
+        setCountryData(response?.filter((item) => item.name.common === params.name.toString().replace(/-/g, " ")));
       })
       .catch((error) => {
         console.log(error);
@@ -121,17 +121,19 @@ export default function Country({ params }) {
           <div className="mt-[34px]">
             <h3 className="text-[16px] leading-[24px] mb-4">Border Countries: </h3>
 
-            {countryData[0] && 
+            {countryData[0] && (
               <ul className="flex flex-wrap gap-[10px]">
-                {countryData[0].borders?.map((item, index) =>
+                {countryData[0].borders?.map((item, index) => (
                   <li className="bg-white w-auto text-[12px] font-light py-[6px] px-[30px] box-shadow rounded-[5px] dark:bg-darkModeInputBg" key={index}>
                     {/* {convertCiocToCountry(item)}
                      */}
                     {item}
                   </li>
-                )}
+                ))}
               </ul>
-            }
+            )}
+
+            {countryData[0]?.borders?.length === null && <p className="text-[12px] font-light">This country doesn't have any border countries.</p>}
           </div>
         </div>
       </div>

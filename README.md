@@ -17,7 +17,7 @@ Fun with Flags Website
 
 ### Links
 
-- Git URL: https://github.com/thusmiley/fun-with-flags.git
+- Repository URL: https://github.com/thusmiley/fun-with-flags.git
 - Live Site URL: https://fun-with-flags-gules.vercel.app/
 
 ### Built with
@@ -29,6 +29,7 @@ Fun with Flags Website
 - React (Nextjs)
 - React Hook Form
 - Rest Countries APIs: https://restcountries.com/#endpoints-name
-- App Router ?
+- Nextjs Dynamic Router
 - Dark mode
 - HeadlessUI
+- Search and filter
