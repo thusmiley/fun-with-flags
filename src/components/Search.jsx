@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -27,6 +28,7 @@ const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
         setSearchKeyword(data.search);
         setSearchError(true);
       });
+    reset();
   };
 
   return (
@@ -63,9 +65,11 @@ const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
             },
           })}
           placeholder="Search for a country…"
-          className="py-[14px] pl-[74px] bg-white w-full text-[12px] leading-[20px] text-lightModeText placeholder:text-[#c4c4c4] outline-[1px] outline-lightModeText box-shadow rounded-[5px] caret-lightModeText dark:bg-darkModeInputBg dark:text-white dark:caret-white md:w-[480px]"
+          className={`${
+            errors.search ? "border-red-500 outline-red-500" : "border-transparent"
+          } py-[14px] pl-[74px] bg-white w-full text-[12px] leading-[20px] text-lightModeText placeholder:text-[#c4c4c4] outline-[1px] outline-offset-2 outline-lightModeText border-[1px] box-shadow rounded-[5px] caret-lightModeText dark:bg-darkModeInputBg dark:text-white dark:caret-white md:w-[480px]`}
         />
-        {errors.search && <p className="mt-1 text-[12px] leading-[18px] tracking-[.08px] text-red-500 italic">{errors.search.message}</p>}
+        {errors.search && <p className="mt-[6px] text-[12px] leading-[18px] tracking-[.08px] text-red-500 italic">{errors.search.message}</p>}
       </div>
     </form>
   );
