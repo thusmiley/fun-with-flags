@@ -8,33 +8,32 @@ export default function Country({ params }) {
   const router = useRouter();
   const [countryData, setCountryData] = useState([]);
 
+
+
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/name/${params.name.toString().replace(/-/g, " ")}`)
       .then((response) => response.json())
+      .then((response) => response?.filter((item) => item.name.common === params.name.toString().replace(/-/g, " ")))
       .then((response) => {
-        console.log(params.name.toString().replace(/-/g, " "));
-        setCountryData(response?.filter((item) => item.name.common === params.name.toString().replace(/-/g, " ")));
+        return convertCountryCodes(response)
       })
+      .then((country) => setCountryData(country))
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
-  const convertCiocToCountry = (item) => {
-    let countryName = "";
-    fetch(`https://restcountries.com/v3.1/alpha?codes=${item}`)
-      .then((response) => response.json())
-      .then((response) => {
-        countryName = response[0]?.name.common;
-        console.log(countryName);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    return countryName;
-  };
-
-  // console.log(countryData);
+  
+  async function convertCountryCodes(countryObject){
+    let convertedCountries = []
+    for(let countryCode of countryObject[0].borders){
+      let response = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryCode}`)
+      .then((response) => response.json()) 
+      convertedCountries.push(response[0].name.common)
+    }
+    // console.log(convertedCountries)
+    countryObject[0].borders = convertedCountries
+    return countryObject
+  }
 
   return (
     <main className="min-h-screen px-4 mx-auto pt-6 pb-[65px] max-w-[1280px] md:px-10 xl:pt-[48px]">
@@ -123,10 +122,8 @@ export default function Country({ params }) {
 
             {countryData[0] && countryData[0].borders?.length > 0 ? (
               <ul className="flex flex-wrap gap-[10px]">
-                {countryData[0].borders?.map((item, index) => (
+                {countryData[0]?.borders?.map((item, index) => (
                   <li className="bg-white w-auto text-[12px] font-light py-[6px] px-[30px] box-shadow rounded-[5px] dark:bg-darkModeInputBg" key={index}>
-                    {/* {convertCiocToCountry(item)}
-                     */}
                     {item}
                   </li>
                 ))}
