@@ -121,7 +121,7 @@ export default function Country({ params }) {
           <div className="mt-[34px]">
             <h3 className="text-[16px] leading-[24px] mb-4">Border Countries: </h3>
 
-            {countryData[0] && (
+            {countryData[0] && countryData[0].borders?.length > 0 ? (
               <ul className="flex flex-wrap gap-[10px]">
                 {countryData[0].borders?.map((item, index) => (
                   <li className="bg-white w-auto text-[12px] font-light py-[6px] px-[30px] box-shadow rounded-[5px] dark:bg-darkModeInputBg" key={index}>
@@ -131,9 +131,9 @@ export default function Country({ params }) {
                   </li>
                 ))}
               </ul>
+            ) : (
+              <p className="text-[14px] leading-8">None</p>
             )}
-
-            {countryData[0]?.borders?.length === null && <p className="text-[12px] font-light">This country doesn't have any border countries.</p>}
           </div>
         </div>
       </div>
