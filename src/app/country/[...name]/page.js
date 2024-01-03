@@ -8,8 +8,6 @@ export default function Country({ params }) {
   const router = useRouter();
   const [countryData, setCountryData] = useState([]);
 
-
-
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/name/${params.name.toString().replace(/-/g, " ")}`)
       .then((response) => response.json())
@@ -30,7 +28,6 @@ export default function Country({ params }) {
       .then((response) => response.json()) 
       convertedCountries.push(response[0].name.common)
     }
-    // console.log(convertedCountries)
     countryObject[0].borders = convertedCountries
     return countryObject
   }
