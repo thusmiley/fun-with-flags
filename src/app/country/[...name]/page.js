@@ -23,12 +23,14 @@ export default function Country({ params }) {
   
   async function convertCountryCodes(countryObject){
     let convertedCountries = []
-    for(let countryCode of countryObject[0].borders){
-      let response = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryCode}`)
-      .then((response) => response.json()) 
-      convertedCountries.push(response[0].name.common)
+    if(countryObject.borders){
+      for(let countryCode of countryObject[0].borders){
+        let response = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryCode}`)
+        .then((response) => response.json()) 
+        convertedCountries.push(response[0].name.common)
+      }
+      countryObject[0].borders = convertedCountries
     }
-    countryObject[0].borders = convertedCountries
     return countryObject
   }
 
