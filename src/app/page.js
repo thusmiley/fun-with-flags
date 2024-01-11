@@ -27,24 +27,31 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    console.log(filterStatus)
     switch (filterStatus) {
       case "africa":
-        return setRegionData(filteredData.filter((item) => item.region === "Africa"));
+         setRegionData(filteredData.filter((item) => item.region === "Africa"));
+         break
       case "americas":
-        return setRegionData(filteredData.filter((item) => item.region === "Americas"));
+        setRegionData(filteredData.filter((item) => item.region === "Americas"));
+        break
       case "asia":
-        return setRegionData(filteredData.filter((item) => item.region === "Asia"));
+        setRegionData(filteredData.filter((item) => item.region === "Asia"));
+        break
       case "europe":
-        return setRegionData(filteredData.filter((item) => item.region === "Europe"));
+        setRegionData(filteredData.filter((item) => item.region === "Europe"));
+        break
       case "oceania":
-        return setRegionData(filteredData.filter((item) => item.region === "Oceania"));
+        setRegionData(filteredData.filter((item) => item.region === "Oceania"));
+        break
       case "all":
-        return setRegionData(filteredData);
+        setRegionData(filteredData);
+        break
 
-        console.log(regionData);
-        console.log(filteredData);
-        setFilteredData(regionData);
     }
+    
+    setFilteredData(regionData);
+
   }, [filterStatus]);
 
   return (
