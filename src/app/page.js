@@ -9,8 +9,9 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [filterStatus, setFilterStatus] = useState("all");
   const [filteredData, setFilteredData] = useState([]);
+  const [regionData, setRegionData] = useState(filteredData);
   const [searchError, setSearchError] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState(null);
 
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/all`)
@@ -28,18 +29,21 @@ export default function Home() {
   useEffect(() => {
     switch (filterStatus) {
       case "africa":
-        return setFilteredData(data.filter((item) => item.region === "Africa"));
+        return setRegionData(filteredData.filter((item) => item.region === "Africa"));
       case "americas":
-        return setFilteredData(data.filter((item) => item.region === "Americas"));
+        return setRegionData(filteredData.filter((item) => item.region === "Americas"));
       case "asia":
-        return setFilteredData(data.filter((item) => item.region === "Asia"));
+        return setRegionData(filteredData.filter((item) => item.region === "Asia"));
       case "europe":
-        return setFilteredData(data.filter((item) => item.region === "Europe"));
+        return setRegionData(filteredData.filter((item) => item.region === "Europe"));
       case "oceania":
-        return setFilteredData(data.filter((item) => item.region === "Oceania"));
+        return setRegionData(filteredData.filter((item) => item.region === "Oceania"));
       case "all":
-        return setFilteredData(data);
+        return setRegionData(filteredData);
+
+        console.log(regionData);
         console.log(filteredData);
+        setFilteredData(regionData);
     }
   }, [filterStatus]);
 

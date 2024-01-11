@@ -1,17 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 
 const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    fetch(`https://restcountries.com/v3.1/name/${data.search}`)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`https://restcountries.com/v3.1/name/${e.target.search.value}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -22,17 +15,16 @@ const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
       .then((response) => {
         setFilteredData(response);
         setSearchError(false);
-        setSearchKeyword(data.search);
+        setSearchKeyword(e.target.search.value);
       })
       .catch((error) => {
-        setSearchKeyword(data.search);
+        setSearchKeyword(e.target.search.value);
         setSearchError(true);
       });
-    reset();
   };
 
   return (
-    <form action="" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+    <form action="" onSubmit={handleSubmit} autoComplete="off">
       <div className="relative">
         <svg
           alt="search"
@@ -57,19 +49,10 @@ const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
 
         <input
           type="search"
-          {...register("search", {
-            required: "Please enter a country name",
-            pattern: {
-              value: /[a-zA-Z]{2,}/,
-              message: "Invalid",
-            },
-          })}
+          name="search"
           placeholder="Search for a country…"
-          className={`${
-            errors.search ? "border-red-500 outline-red-500" : "border-transparent"
-          } py-[14px] pl-[74px] bg-white w-full text-[12px] leading-[20px] text-lightModeText placeholder:text-[#c4c4c4] outline-[1px] outline-offset-2 outline-lightModeText border-[1px] box-shadow rounded-[5px] caret-lightModeText dark:bg-darkModeInputBg dark:text-white dark:caret-white md:w-[480px]`}
+          className={`py-[14px] pl-[74px] bg-white w-full text-[12px] leading-[20px] text-lightModeText placeholder:text-[#c4c4c4] outline-[1px] outline-offset-2 outline-lightModeText border-[1px] box-shadow rounded-[5px] caret-lightModeText dark:bg-darkModeInputBg dark:text-white dark:caret-white md:w-[480px]`}
         />
-        {errors.search && <p className="mt-[6px] text-[12px] leading-[18px] tracking-[.08px] text-red-500 italic">{errors.search.message}</p>}
       </div>
     </form>
   );

@@ -38,35 +38,35 @@ const Filter = ({ setFilterStatus }) => {
             <ul className="absolute top-[18px] -left-6 bg-white w-[200px] py-[14px] box-shadow rounded-[5px] leading-[16px] outline-none dark:bg-darkModeInputBg">
               <Listbox.Option id={regions[1].id} value={regions[1]} as={Fragment}>
                 {({ active, selected }) => (
-                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onClick={() => setFilterStatus("africa")}>
+                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onChange={() => setFilterStatus("africa")}>
                     {regions[1].name}
                   </li>
                 )}
               </Listbox.Option>
               <Listbox.Option id={regions[2].id} value={regions[2]} as={Fragment}>
                 {({ active, selected }) => (
-                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onClick={() => setFilterStatus("americas")}>
+                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onChange={() => setFilterStatus("americas")}>
                     {regions[2].name}
                   </li>
                 )}
               </Listbox.Option>
               <Listbox.Option id={regions[3].id} value={regions[3]} as={Fragment}>
                 {({ active, selected }) => (
-                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onClick={() => setFilterStatus("asia")}>
+                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onChange={() => setFilterStatus("asia")}>
                     {regions[3].name}
                   </li>
                 )}
               </Listbox.Option>
               <Listbox.Option id={regions[4].id} value={regions[4]} as={Fragment}>
                 {({ active, selected }) => (
-                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onClick={() => setFilterStatus("europe")}>
+                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onChange={() => setFilterStatus("europe")}>
                     {regions[4].name}
                   </li>
                 )}
               </Listbox.Option>
               <Listbox.Option id={regions[5].id} value={regions[5]} as={Fragment}>
                 {({ active, selected }) => (
-                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onClick={() => setFilterStatus("oceania")}>
+                  <li className={`${active && "bg-lightModeBg dark:bg-darkModeBg"} cursor-pointer py-1 px-6`} onChange={() => setFilterStatus("oceania")}>
                     {regions[5].name}
                   </li>
                 )}
