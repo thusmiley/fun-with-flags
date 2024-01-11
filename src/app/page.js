@@ -8,18 +8,18 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [data, setData] = useState([]);
   const [filterStatus, setFilterStatus] = useState("all");
-  const [filteredData, setFilteredData] = useState([]);
-  const [regionData, setRegionData] = useState(filteredData);
   const [searchError, setSearchError] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState(null);
+  const [searchedData, setSearchedData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/all`)
       .then((response) => response.json())
       .then((response) => {
         setData(response);
+        setSearchedData(response)
         setFilteredData(response);
-        // console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -27,37 +27,26 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log(filterStatus)
     switch (filterStatus) {
       case "africa":
-         setRegionData(filteredData.filter((item) => item.region === "Africa"));
-         break
+        return setFilteredData(searchedData.filter((item) => item.region === "Africa"));
       case "americas":
-        setRegionData(filteredData.filter((item) => item.region === "Americas"));
-        break
+        return setFilteredData(searchedData.filter((item) => item.region === "Americas"));
       case "asia":
-        setRegionData(filteredData.filter((item) => item.region === "Asia"));
-        break
+        return setFilteredData(searchedData.filter((item) => item.region === "Asia"));
       case "europe":
-        setRegionData(filteredData.filter((item) => item.region === "Europe"));
-        break
+        return setFilteredData(searchedData.filter((item) => item.region === "Europe"));
       case "oceania":
-        setRegionData(filteredData.filter((item) => item.region === "Oceania"));
-        break
+        return setFilteredData(searchedData.filter((item) => item.region === "Oceania"));
       case "all":
-        setRegionData(filteredData);
-        break
-
+        return setFilteredData(searchedData);
     }
-    
-    setFilteredData(regionData);
-
-  }, [filterStatus]);
+  }, [filterStatus, searchedData]);
 
   return (
     <main className="min-h-screen px-4 mx-auto pt-6 pb-[65px] max-w-[1280px] md:px-10 xl:pt-[48px]">
       <div className="space-y-[40px] lg:flex lg:justify-between lg:items-center lg:space-y-0">
-        <Search setFilteredData={setFilteredData} setSearchError={setSearchError} setSearchKeyword={setSearchKeyword} />
+        <Search setSearchedData={setSearchedData} setFilteredData={setFilteredData} setSearchError={setSearchError} setSearchKeyword={setSearchKeyword} />
         <Filter setFilterStatus={setFilterStatus} />
       </div>
       {searchError ? (

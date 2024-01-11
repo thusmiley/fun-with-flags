@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
+const Search = ({setFilteredData, setSearchedData, setSearchError, setSearchKeyword }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`https://restcountries.com/v3.1/name/${e.target.search.value}`)
@@ -13,7 +13,11 @@ const Search = ({ setFilteredData, setSearchError, setSearchKeyword }) => {
         }
       })
       .then((response) => {
+        setSearchedData(response);
         setFilteredData(response);
+
+
+
         setSearchError(false);
         setSearchKeyword(e.target.search.value);
       })
