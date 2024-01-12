@@ -46,7 +46,14 @@ export default function Home() {
   return (
     <main className="min-h-screen px-4 mx-auto pt-6 pb-[65px] max-w-[1280px] md:px-10 xl:pt-[48px]">
       <div className="space-y-[40px] lg:flex lg:justify-between lg:items-center lg:space-y-0">
-        <Search setSearchedData={setSearchedData} setFilteredData={setFilteredData} setSearchError={setSearchError} setSearchKeyword={setSearchKeyword} />
+        <Search
+          setData={setData}
+          setSearchedData={setSearchedData}
+          setFilteredData={setFilteredData}
+          setSearchError={setSearchError}
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+        />
         <Filter setFilterStatus={setFilterStatus} />
       </div>
       {searchError ? (

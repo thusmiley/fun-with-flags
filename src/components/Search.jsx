@@ -1,31 +1,45 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const Search = ({setFilteredData, setSearchedData, setSearchError, setSearchKeyword }) => {
+const Search = ({ setData, setFilteredData, setSearchedData, setSearchError, searchKeyword, setSearchKeyword }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`https://restcountries.com/v3.1/name/${e.target.search.value}`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Country does not exist.");
-        }
-      })
-      .then((response) => {
-        setSearchedData(response);
-        setFilteredData(response);
-
-
-
-        setSearchError(false);
-        setSearchKeyword(e.target.search.value);
-      })
-      .catch((error) => {
-        setSearchKeyword(e.target.search.value);
-        setSearchError(true);
-      });
+    setSearchKeyword(e.target.search.value);
   };
+
+  useEffect(() => {
+    if (searchKeyword === null || searchKeyword === "" || searchKeyword === undefined) {
+      fetch(`https://restcountries.com/v3.1/all`)
+        .then((response) => response.json())
+        .then((response) => {
+          setData(response);
+          setSearchedData(response);
+          setFilteredData(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      fetch(`https://restcountries.com/v3.1/name/${searchKeyword}`)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Country does not exist.");
+          }
+        })
+        .then((response) => {
+          setSearchedData(response);
+          setFilteredData(response);
+          setSearchError(false);
+          setSearchKeyword(searchKeyword);
+        })
+        .catch((error) => {
+          setSearchKeyword(searchKeyword);
+          setSearchError(true);
+        });
+    }
+  }, [searchKeyword]);
 
   return (
     <form action="" onSubmit={handleSubmit} autoComplete="off">
@@ -56,6 +70,7 @@ const Search = ({setFilteredData, setSearchedData, setSearchError, setSearchKeyw
           name="search"
           placeholder="Search for a country…"
           className={`py-[14px] pl-[74px] bg-white w-full text-[12px] leading-[20px] text-lightModeText placeholder:text-[#c4c4c4] outline-[1px] outline-offset-2 outline-lightModeText border-[1px] box-shadow rounded-[5px] caret-lightModeText dark:bg-darkModeInputBg dark:text-white dark:caret-white md:w-[480px]`}
+          onChange={(e) => setSearchKeyword(e.target.value)}
         />
       </div>
     </form>
