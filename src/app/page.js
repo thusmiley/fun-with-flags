@@ -9,7 +9,7 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [filterStatus, setFilterStatus] = useState("all");
   const [searchError, setSearchError] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const [searchedData, setSearchedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 

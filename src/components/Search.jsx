@@ -8,7 +8,7 @@ const Search = ({ setData, setFilteredData, setSearchedData, setSearchError, sea
   };
 
   useEffect(() => {
-    if (searchKeyword === null || searchKeyword === "" || searchKeyword === undefined) {
+    if (searchKeyword === "") {
       fetch(`https://restcountries.com/v3.1/all`)
         .then((response) => response.json())
         .then((response) => {
@@ -32,10 +32,8 @@ const Search = ({ setData, setFilteredData, setSearchedData, setSearchError, sea
           setSearchedData(response);
           setFilteredData(response);
           setSearchError(false);
-          setSearchKeyword(searchKeyword);
         })
         .catch((error) => {
-          setSearchKeyword(searchKeyword);
           setSearchError(true);
         });
     }
