@@ -6,16 +6,21 @@ import Image from "next/image";
 import Link from "next/link";
 import useFetch from "@/hooks/useFetch";
 import Border from "@/components/Border";
+import { notFound } from "next/navigation";
 
 export default function Country({ params }) {
   const router = useRouter();
-  const { countries, isLoading, error } = useFetch(`name/${params.name}`);
+  const { countries, isLoading, error } = useFetch(`name/${params.name}}`);
+  //   const { countries, isLoading, error } = useFetch(
+  //     `name/${params.name.toString().replace(/-/g, " ")}}`
+  //   );
 
   return (
     <main className="min-h-screen px-4 mx-auto pt-6 pb-[65px] max-w-[1280px] md:px-10 xl:pt-[48px]">
       {error ? (
         <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
-          {error}
+          {/* {error.message} */}
+          {notFound()}
         </p>
       ) : isLoading ? (
         <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
@@ -68,39 +73,35 @@ export default function Country({ params }) {
               <div className="space-y-8 xl:flex xl:justify-start xl:items-start xl:space-x-[50px] xl:space-y-0">
                 <div>
                   <p className="text-[14px] leading-8 font-semibold">
-                    Native Name: &nbsp;
+                    Native Name:&nbsp;
                     <span className="font-light">
-                      {
-                        countries[0].name.nativeName[
-                          Object.values(countries[0].name.nativeName)[0]
-                        ].official
-                      }
+                      {Object.values(countries[0].name.nativeName)[0].official}
                     </span>
                   </p>
 
                   <p className="text-[14px] leading-8 font-semibold">
-                    Population: &nbsp;
+                    Population:&nbsp;
                     <span className="font-light">
                       {countries[0].population.toLocaleString()}
                     </span>
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
-                    Region: &nbsp;
+                    Region:&nbsp;
                     <span className="font-light">{countries[0].region}</span>
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
-                    Sub Region: &nbsp;
+                    Sub Region:&nbsp;
                     <span className="font-light">{countries[0].subregion}</span>
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
-                    Capital: &nbsp;
+                    Capital:&nbsp;
                     <span className="font-light">{countries[0].capital}</span>
                   </p>
                 </div>
 
                 <div>
                   <p className="text-[14px] leading-8 font-semibold">
-                    Top Level Domain: &nbsp;
+                    Top Level Domain:&nbsp;
                     {countries[0]
                       ? countries[0].tld.map((domain, index) => (
                           <span key={index} className="font-light">
@@ -110,7 +111,7 @@ export default function Country({ params }) {
                       : []}
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
-                    Currencies: &nbsp;
+                    Currencies:&nbsp;
                     <span className="font-light">
                       {Object.values(countries[0].currencies)[0].name}
                     </span>
@@ -118,7 +119,7 @@ export default function Country({ params }) {
 
                   <p className="text-[14px] leading-8 font-semibold">
                     <span>
-                      {Object.values(countries[0].languages).length > 1
+                      {countries[0].languages.length > 1
                         ? "Languages: "
                         : "Language: "}
                     </span>
