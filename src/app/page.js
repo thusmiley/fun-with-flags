@@ -3,67 +3,70 @@
 import CountryCard from "@/components/CountryCard";
 import Filter from "@/components/Filter";
 import Search from "@/components/Search";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { regions } from "@/config/regionList";
+import { CountriesContext } from "@/context/countriesContext";
+import useFetch from "@/hooks/useFetch";
 
 export default function Home() {
-  const [data, setData] = useState([]);
-  const [filterStatus, setFilterStatus] = useState("all");
-  const [searchError, setSearchError] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [searchedData, setSearchedData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const { searchFilterData } = useContext(CountriesContext);
+  const { countries, isLoading, error } = useFetch("all");
 
-  useEffect(() => {
-    fetch(`https://restcountries.com/v3.1/all`)
-      .then((response) => response.json())
-      .then((response) => {
-        setData(response);
-        setSearchedData(response)
-        setFilteredData(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    switch (filterStatus) {
-      case "africa":
-        return setFilteredData(searchedData.filter((item) => item.region === "Africa"));
-      case "americas":
-        return setFilteredData(searchedData.filter((item) => item.region === "Americas"));
-      case "asia":
-        return setFilteredData(searchedData.filter((item) => item.region === "Asia"));
-      case "europe":
-        return setFilteredData(searchedData.filter((item) => item.region === "Europe"));
-      case "oceania":
-        return setFilteredData(searchedData.filter((item) => item.region === "Oceania"));
-      case "all":
-        return setFilteredData(searchedData);
-    }
-  }, [filterStatus, searchedData]);
+  const filterResults = (countries, filterInput, searchInput) => {
+    if (!searchInput && filterInput) {
+      return countries.filter(
+        (country) => country.region === regions[filterInput]
+      );
+    } else if (searchInput && !filterInput) {
+      return countries.filter((country) =>
+        country.name.common.toLowerCase().includes(searchInput.toLowerCase())
+      );
+    } else if (searchInput && filterInput) {
+      return countries.filter(
+        (country) =>
+          country.region === regions[filterInput] &&
+          country.name.common.toLowerCase().includes(searchInput.toLowerCase())
+      );
+    } else return countries;
+  };
 
   return (
     <main className="min-h-screen px-4 mx-auto pt-6 pb-[65px] max-w-[1280px] md:px-10 xl:pt-[48px]">
       <div className="space-y-[40px] lg:flex lg:justify-between lg:items-center lg:space-y-0">
-        <Search
-          setData={setData}
-          setSearchedData={setSearchedData}
-          setFilteredData={setFilteredData}
-          setSearchError={setSearchError}
-          searchKeyword={searchKeyword}
-          setSearchKeyword={setSearchKeyword}
-        />
-        <Filter setFilterStatus={setFilterStatus} />
+        <Search />
+        <Filter />
       </div>
-      {searchError ? (
-        <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">Country "{searchKeyword}" doesn't exist.</p>
-      ) : (
+      {error ? (
+        <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
+          {error.message}
+        </p>
+      ) : isLoading ? (
+        <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
+          Loading...
+        </p>
+      ) : filterResults(
+          countries,
+          searchFilterData?.filterInput,
+          searchFilterData?.searchInput
+        ).length !== 0 ? (
         <div className="mt-8 grid grid-cols-1 gap-y-10 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mt-[48px] xl:gap-[75px]">
-          {filteredData?.map((country, index) => (
+          {filterResults(
+            countries,
+            searchFilterData?.filterInput,
+            searchFilterData?.searchInput
+          ).map((country, index) => (
             <CountryCard key={index} country={country} />
           ))}
         </div>
+      ) : (
+        <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
+          <span className="capitalize">{searchFilterData?.searchInput}</span>
+          {`${searchFilterData?.filterInput ? "is" : ""} not found${
+            searchFilterData?.filterInput
+              ? " in " + regions[searchFilterData?.filterInput]
+              : ""
+          }.`}
+        </p>
       )}
     </main>
   );
