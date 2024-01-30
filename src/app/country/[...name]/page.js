@@ -10,10 +10,9 @@ import { notFound } from "next/navigation";
 
 export default function Country({ params }) {
   const router = useRouter();
-  const { countries, isLoading, error } = useFetch(`name/${params.name}}`);
-  //   const { countries, isLoading, error } = useFetch(
-  //     `name/${params.name.toString().replace(/-/g, " ")}}`
-  //   );
+  const { countries, isLoading, error } = useFetch(
+    `name/${params.name.toString().replace(/-/g, " ")}`
+  );
 
   return (
     <main className="min-h-screen px-4 mx-auto pt-6 pb-[65px] max-w-[1280px] md:px-10 xl:pt-[48px]">
@@ -63,6 +62,7 @@ export default function Country({ params }) {
                 height={229}
                 alt="flag image"
                 className="w-[320px] h-[229px] object-fill object-center mx-auto mb-[44px] lg:mx-0 lg:w-[560px] lg:h-[401px] lg:mb-0"
+                priority
               />
             )}
 
@@ -118,11 +118,7 @@ export default function Country({ params }) {
                   </p>
 
                   <p className="text-[14px] leading-8 font-semibold">
-                    <span>
-                      {countries[0].languages.length > 1
-                        ? "Languages: "
-                        : "Language: "}
-                    </span>
+                    Languages:&nbsp;
                     <span className="font-light">
                       {Object.values(countries[0].languages).join(", ")}
                     </span>

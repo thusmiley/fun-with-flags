@@ -44,7 +44,7 @@ const Filter = () => {
           <Listbox.Options as={Fragment}>
             <ul className="absolute top-[18px] -left-6 bg-white w-[200px] py-[14px] box-shadow rounded-[5px] leading-[16px] outline-none dark:bg-darkModeInputBg">
               {regions.map((item, index) => (
-                <Listbox.Option id={index} as={Fragment}>
+                <Listbox.Option key={index} as={Fragment}>
                   {({ active, selected }) => (
                     <li
                       className={`${

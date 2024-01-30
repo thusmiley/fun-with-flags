@@ -7,6 +7,7 @@ const Border = ({ countryCode }) => {
   const { countries, isLoading, error } = useFetch(
     `alpha?codes=${countryCode}`
   );
+
   return error ? (
     <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
       {error.message}
