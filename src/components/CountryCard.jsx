@@ -1,14 +1,10 @@
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CountryCard = ({ country }) => {
-  const router = useRouter();
-
   return (
-    <div
+    <Link
+      href={`/country/${country.name.common.split(` `).join(`-`)}`}
       className="bg-white rounded-[5px] mx-auto max-w-[264px] cursor-pointer dark:bg-darkModeInputBg"
-      onClick={() =>
-        router.push(`/country/${country.name.common.split(` `).join(`-`)}`)
-      }
     >
       <img
         src={country.flags.svg}
@@ -32,7 +28,7 @@ const CountryCard = ({ country }) => {
           Capital: <span className="font-light">{country.capital}</span>
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

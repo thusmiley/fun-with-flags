@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 export default function Country({ params }) {
   const router = useRouter();
   const { countries, isLoading, error } = useFetch(
-    `name/${params.name.toString().replace(/-/g, " ")}`
+    `name/${params.name.toString().replace(/-/g, " ")}?fullText=true`
   );
 
   return (

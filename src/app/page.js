@@ -61,7 +61,7 @@ export default function Home() {
       ) : (
         <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
           <span className="capitalize">{searchFilterData?.searchInput}</span>
-          {`${searchFilterData?.filterInput ? "is" : ""} not found${
+          {`${searchFilterData?.filterInput ? " is" : ""} not found${
             searchFilterData?.filterInput
               ? " in " + regions[searchFilterData?.filterInput]
               : ""
