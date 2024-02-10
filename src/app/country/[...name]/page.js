@@ -95,11 +95,15 @@ export default function Country({ params }) {
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
                     Sub Region:&nbsp;
-                    <span className="font-light">{countries[0].subregion}</span>
+                    <span className="font-light">
+                      {countries[0].subregion ? countries[0].subregion : 'NA'}
+                    </span>
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
                     Capital:&nbsp;
-                    <span className="font-light">{countries[0].capital}</span>
+                    <span className="font-light">
+                      {countries[0].capital ? countries[0].capital : "NA"}
+                    </span>
                   </p>
                 </div>
 
@@ -117,14 +121,20 @@ export default function Country({ params }) {
                   <p className="text-[14px] leading-8 font-semibold">
                     Currencies:&nbsp;
                     <span className="font-light">
-                      {Object.values(countries[0].currencies)[0].name}
+                      {typeof countries[0].currencies != "undefined" &&
+                      countries[0].currencies != null
+                        ? Object.values(countries[0].currencies)[0].name
+                        : "NA"}
                     </span>
                   </p>
 
                   <p className="text-[14px] leading-8 font-semibold">
                     Languages:&nbsp;
                     <span className="font-light">
-                      {Object.values(countries[0].languages).join(", ")}
+                      {typeof countries[0].languages != "undefined" &&
+                      countries[0].languages != null
+                        ? Object.values(countries[0].languages).join(", ")
+                        : "NA"}
                     </span>
                   </p>
                 </div>
