@@ -75,7 +75,11 @@ export default function Country({ params }) {
                   <p className="text-[14px] leading-8 font-semibold">
                     Native Name:&nbsp;
                     <span className="font-light">
-                      {Object.values(countries[0].name.nativeName)[0].official}
+                      {typeof countries[0].name.nativeName != "undefined" &&
+                      countries[0].name.nativeName != null
+                        ? Object.values(countries[0].name.nativeName)[0]
+                            .official
+                        : "NA"}
                     </span>
                   </p>
 

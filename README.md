@@ -33,3 +33,4 @@ Fun with Flags Website
 - Dark mode
 - HeadlessUI
 - Search and filter
+- Pagination from MUI Material

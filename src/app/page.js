@@ -11,6 +11,7 @@ import useFetch from "@/hooks/useFetch";
 export default function Home() {
   const { searchFilterData } = useContext(CountriesContext);
   const { countries, isLoading, error } = useFetch("all");
+  const [loadMore, setLoadMore] = useState(20);
 
   const filterResults = (countries, filterInput, searchInput) => {
     if (!searchInput && filterInput) {
@@ -28,10 +29,15 @@ export default function Home() {
           country.name.common.toLowerCase().includes(searchInput.toLowerCase())
       );
     } else return countries;
+    setLoadMore(20);
+  };
+
+  const handleLoadMore = () => {
+    setLoadMore(loadMore + 20);
   };
 
   return (
-    <main className="min-h-screen px-4 mx-auto pt-6 pb-[65px] max-w-[1280px] md:px-10 xl:pt-[48px]">
+    <main className="min-h-screen px-4 mx-auto pt-6 pb-[100px] max-w-[1280px] md:px-10 xl:pt-[48px]">
       <div className="space-y-[40px] lg:flex lg:justify-between lg:items-center lg:space-y-0">
         <Search />
         <Filter />
@@ -49,14 +55,30 @@ export default function Home() {
           searchFilterData?.filterInput,
           searchFilterData?.searchInput
         ).length !== 0 ? (
-        <div className="mt-8 grid grid-cols-1 gap-y-10 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mt-[48px] xl:gap-[75px]">
+        <div className="text-center relative">
+          <div className="mt-8 text-left grid grid-cols-1 gap-y-10 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mt-[48px] xl:gap-[75px]">
+            {filterResults(
+              countries,
+              searchFilterData?.filterInput,
+              searchFilterData?.searchInput
+            )
+              .slice(0, loadMore)
+              .map((country, index) => (
+                <CountryCard key={index} country={country} />
+              ))}
+          </div>
           {filterResults(
             countries,
             searchFilterData?.filterInput,
             searchFilterData?.searchInput
-          ).map((country, index) => (
-            <CountryCard key={index} country={country} />
-          ))}
+          ).length > 20 && (
+            <button
+              className="text-[14px] font-bold py-2 px-4 border-white border-[1px] mt-16 transition-colors duration-200 ease-in-out text-center rounded-[5px] hover:underline xl:text-[16px]"
+              onClick={handleLoadMore}
+            >
+              Load more
+            </button>
+          )}
         </div>
       ) : (
         <p className="mt-8 xl:mt-[48px] text-[12px] leading-[20px] text-center">
