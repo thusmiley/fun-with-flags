@@ -10,7 +10,7 @@ const Filter = () => {
     useContext(CountriesContext);
 
   return (
-    <div className="bg-white w-[200px] px-6 py-[14px] box-shadow rounded-[5px] text-[12px] leading-[20px] dark:bg-darkModeInputBg">
+    <div className="bg-white w-[200px] px-6 py-[14px] box-shadow rounded-[5px] text-[12px] leading-[20px] dark:bg-darkModeInputBg z-20">
       <Listbox value={regions[searchFilterData?.filterInput]}>
         <Listbox.Button as={Fragment}>
           <span className="flex justify-between items-center w-[152px] cursor-pointer">
@@ -51,7 +51,7 @@ const Filter = () => {
                         active && "bg-lightModeBg dark:bg-darkModeBg"
                       } ${
                         index === 0 ? "hidden" : ""
-                      } cursor-pointer py-1 px-6`}
+                      } cursor-pointer py-2 px-6`}
                       onClick={() => handleRegionSelect(index)}
                     >
                       {item}

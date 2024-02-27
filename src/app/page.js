@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen px-4 mx-auto pt-6 pb-[100px] max-w-[1280px] md:px-10 xl:pt-[48px]">
-      <div className="space-y-[40px] lg:flex lg:justify-between lg:items-center lg:space-y-0">
+      <div className="space-y-[40px] relative z-10 lg:flex lg:justify-between lg:items-center lg:space-y-0">
         <Search />
         <Filter />
       </div>
@@ -55,7 +55,7 @@ export default function Home() {
           searchFilterData?.filterInput,
           searchFilterData?.searchInput
         ).length !== 0 ? (
-        <div className="text-center relative">
+        <div className="text-center relative z-[1]">
           <div className="mt-8 text-left grid grid-cols-1 gap-y-10 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:mt-[48px] xl:gap-[75px]">
             {filterResults(
               countries,
@@ -73,7 +73,7 @@ export default function Home() {
             searchFilterData?.searchInput
           ).length > 20 && (
             <button
-              className="text-[14px] font-bold py-2 px-4 border-white border-[1px] mt-16 transition-colors duration-200 ease-in-out text-center rounded-[5px] hover:underline xl:text-[16px]"
+              className="text-[14px] bg-white dark:bg-darkModeInputBg dark:text-white font-bold py-2 px-4 border-white dark:border-darkModeInputBg border-[1px] mt-16 transition-colors duration-200 ease-in-out text-center rounded-[5px] hover:underline xl:text-[16px]"
               onClick={handleLoadMore}
             >
               Load more
