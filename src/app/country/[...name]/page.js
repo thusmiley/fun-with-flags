@@ -86,17 +86,19 @@ export default function Country({ params }) {
                   <p className="text-[14px] leading-8 font-semibold">
                     Population:&nbsp;
                     <span className="font-light">
-                      {countries[0].population.toLocaleString()}
+                      {countries[0].population.toLocaleString() || "NA"}
                     </span>
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
                     Region:&nbsp;
-                    <span className="font-light">{countries[0].region}</span>
+                    <span className="font-light">
+                      {countries[0].region || "NA"}
+                    </span>
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
                     Sub Region:&nbsp;
                     <span className="font-light">
-                      {countries[0].subregion ? countries[0].subregion : 'NA'}
+                      {countries[0].subregion ? countries[0].subregion : "NA"}
                     </span>
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
@@ -116,7 +118,7 @@ export default function Country({ params }) {
                             {(index ? ", " : "") + domain}
                           </span>
                         ))
-                      : []}
+                      : "NA"}
                   </p>
                   <p className="text-[14px] leading-8 font-semibold">
                     Currencies:&nbsp;

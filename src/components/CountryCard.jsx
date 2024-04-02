@@ -18,14 +18,14 @@ const CountryCard = ({ country }) => {
         <p className="text-[14px] leading-[16px] font-semibold">
           Population:{" "}
           <span className="font-light">
-            {country.population.toLocaleString()}
+            {country.population.toLocaleString() || "NA"}
           </span>
         </p>
         <p className="text-[14px] leading-[16px] font-semibold my-2">
-          Region: <span className="font-light">{country.region}</span>
+          Region: <span className="font-light">{country.region || "NA"}</span>
         </p>
         <p className="text-[14px] leading-[16px] font-semibold">
-          Capital: <span className="font-light">{country.capital}</span>
+          Capital: <span className="font-light">{country.capital || "NA"}</span>
         </p>
       </div>
     </Link>
