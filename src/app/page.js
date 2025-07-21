@@ -10,7 +10,7 @@ import useFetch from "@/hooks/useFetch";
 
 export default function Home() {
   const { searchFilterData } = useContext(CountriesContext);
-  const { countries, isLoading, error } = useFetch("all");
+  const { countries, isLoading, error } = useFetch("all?fields=name,capital,flag,population,region");
   const [loadMore, setLoadMore] = useState(20);
 
   const filterResults = (countries, filterInput, searchInput) => {

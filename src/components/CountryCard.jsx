@@ -7,7 +7,7 @@ const CountryCard = ({ country }) => {
       className="bg-white rounded-[5px] mx-auto max-w-[264px] cursor-pointer dark:bg-darkModeInputBg"
     >
       <img
-        src={country.flags.svg}
+        src={country.flag.svg}
         alt={`${country.name.common} flag`}
         className="object-cover object-center rounded-t-[5px] w-[264px] h-[160px]"
       />

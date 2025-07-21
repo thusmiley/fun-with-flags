@@ -21,11 +21,13 @@ function reducer(state, action) {
   }
 }
 
-export default function useFetch(searchInput) {
+export default function useFetch(searchInput) {  
   const [state, dispatch] = useReducer(reducer, {
     countries: [],
     isLoading: true,
   });
+
+
 
   useEffect(() => {
     const fetCountries = () => {
